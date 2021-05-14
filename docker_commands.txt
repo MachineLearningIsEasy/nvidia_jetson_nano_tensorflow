@@ -1,0 +1,10 @@
+# Сборка контейнера с tensorflow и opencv
+sudo docker build -t tf_cv2:v1 .
+
+# Запуск контейнера
+sudo docker run -it --runtime nvidia --device=/dev/video0:/dev/video0 --network host -v /home/bds/Projects/TF_object_detection:/home/detection_app tf_cv2:v1
+
+# На хосте надо разрешить доступ к дисплею
+xhost + 
+# Запуск контейнера c дисплеем
+sudo docker run -it --runtime nvidia --device=/dev/video0:/dev/video0 --network host -v /home/bds/Projects/TF_object_detection:/home/detection_app -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY tf_cv2:v1
